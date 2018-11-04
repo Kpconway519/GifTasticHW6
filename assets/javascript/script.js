@@ -10,7 +10,7 @@ function showPictures() {
     requestedAnimal = $(this).attr("data-animal");
     console.log(requestedAnimal)
 
-    var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + requestedAnimal + "&api_key=AwFTwhr0BP0eLWdTkSzndv6cVY2MVnhs&limit=10&rating=g"
+    var giphyUrl = "https://api.giphy.com/v1/gifs/search?q=" + requestedAnimal + "&api_key=AwFTwhr0BP0eLWdTkSzndv6cVY2MVnhs&limit=10&rating=g"
     
     $.ajax({
         url: giphyUrl,
