@@ -1,3 +1,4 @@
+//add to portfolio and submit the links
 var submitButton = $("#submit-button");
 
 var listOfAnimals = ["Cat", "Dog", "Sheep", "Giraffe", "Jellyfish", "Dolphin", "Cuttlefish", "Otter", "Poodle", "Horse", "Caterpillar"];
@@ -9,7 +10,7 @@ function showPictures() {
     requestedAnimal = $(this).attr("data-animal");
     console.log(requestedAnimal)
 
-    var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + requestedAnimal + "&api_key=AwFTwhr0BP0eLWdTkSzndv6cVY2MVnhs&limit=5&rating=g"
+    var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + requestedAnimal + "&api_key=AwFTwhr0BP0eLWdTkSzndv6cVY2MVnhs&limit=10&rating=g"
     
     $.ajax({
         url: giphyUrl,
@@ -21,15 +22,22 @@ function showPictures() {
     
         for (i = 0; i < apiContent.length; i++) {
     
+            var imageCard = $("<div>")
+            imageCard.attr("class", "card picture-card")
             var gifImage = $("<img>")
+            gifImage.attr("class", "card-img-top img-responsive ani-pic")
+//gifImage should be inside imageCard
+            var movingGif = apiContent[i].images.downsized.url;
 
-            var movingGif = apiContent[i].images.fixed_width_small.url;
-
-            var stillGif = apiContent[i].images.fixed_width_small_still.url
+            var stillGif = apiContent[i].images.downsized_still.url
 
             var imgRating = apiContent[i].rating;
-            var ratingDisplay = $("<p>")
+            var ratingDisplay = $("<h4>")
+            ratingDisplay.attr("class", "card-title")
             ratingDisplay.text("Rating: " + imgRating);
+console.log(ratingDisplay.text())
+
+
 
             gifImage.attr("data-still", stillGif)
             gifImage.attr("data-moving", movingGif)
@@ -37,9 +45,11 @@ function showPictures() {
             gifImage.attr("class", "loadedGif")
             gifImage.attr("src", movingGif)
 
-            gifImage.append(ratingDisplay)
+            imageCard.append(ratingDisplay)
+            
+            imageCard.append(gifImage)
 
-            $("#picture-showcase").prepend(gifImage)
+            $("#picture-showcase").prepend(imageCard)
         }
 
         $(".loadedGif").on("click", function() {
@@ -63,7 +73,7 @@ function showPictures() {
 
     })
 
-}
+} //======== End of showPictures()==========================
     
 
 
@@ -80,13 +90,11 @@ function makeAnimalButtons() {
     var critterButton = $("<button>");
     critterButton.attr("class", "btn btn-info ani-button");
     critterButton.text(listOfAnimals[i]);
-    //just added this thing below. need to figure out how to make it so when you click the button, it prints appropriate gifs
     critterButton.attr("data-animal", listOfAnimals[i])
     $("#button-panel").append(critterButton);
 };
 }
 makeAnimalButtons();
-//make it so when you put a thing in the search box and hit search it adds it to the listOfAnimals array.
 function addButton() {
     event.preventDefault()
 
