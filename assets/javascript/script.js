@@ -7,34 +7,34 @@ var requestedAnimal = "";
 
 
 
+function showPictures(animal, limit) {
 
+    // requestedAnimal = $(this).attr("data-animal");
+    requestedAnimal = animal
+    let gifLimit;
 
+    if (limit) {
+         gifLimit = limit;
+    }
+    else {
+         gifLimit = 10;
+    }
 
+    var giphyUrl = `https://api.giphy.com/v1/gifs/search?q=${requestedAnimal}&api_key=AwFTwhr0BP0eLWdTkSzndv6cVY2MVnhs&limit=${gifLimit}&rating=g`
 
-
-
-
-
-
-function showPictures(animal) {
-
-    requestedAnimal = $(this).attr("data-animal");
-
-    var giphyUrl = "https://api.giphy.com/v1/gifs/search?q=" + requestedAnimal + "&api_key=AwFTwhr0BP0eLWdTkSzndv6cVY2MVnhs&limit=10&rating=g"
-    
     $.ajax({
         url: giphyUrl,
         method: "GET"
-    }).then(function(response){
+    }).then(function (response) {
         console.log(response);
 
         var apiContent = response.data;
-        
+
         for (i = 0; i < apiContent.length; i++) {
 
             let pic = apiContent[i].images.downsized.url
-            let imageCard = 
-            `<div>
+            let imageCard =
+                `<div>
               <img src="${pic}" class="aniGif">
             </div>`;
 
@@ -44,7 +44,7 @@ function showPictures(animal) {
     })
 
 } //======== End of showPictures()==========================
-    
+
 
 
 
@@ -56,29 +56,28 @@ function makeAnimalButtons() {
     $("#button-panel").empty()
 
     for (i = 0; i < listOfAnimals.length; i++) {
-    
-        let critterButton = `
-        <input type="button" value="${listOfAnimals[i]}" class="btn btn-info ani-button" data-animal="${listOfAnimals[i]}">
-        `
 
-    $("#button-panel").append(critterButton);
-};
+        let critterButton = `
+        <input type="button" value="${listOfAnimals[i]}" class="btn btn-info ani-button" data-animal="${listOfAnimals[i]}" onclick="showPictures('${listOfAnimals[i]}')">
+        `
+        $("#button-panel").append(critterButton);
+    };
 }
 makeAnimalButtons();
+
 function addButton() {
     event.preventDefault()
 
-var animalInput = $("#animal-input").val().trim();
-
-
+    var animalInput = $("#animal-input").val().trim();
 
     listOfAnimals.push(animalInput)
-makeAnimalButtons();
+    makeAnimalButtons();
+    showPictures(animalInput)
 }
 
 
 
-$(document).on("click", ".ani-button", showPictures);
+// $(document).on("click", ".ani-button", showPictures);
 
 
 
