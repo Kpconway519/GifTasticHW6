@@ -16,7 +16,7 @@ var requestedAnimal = "";
 
 
 
-function showPictures() {
+function showPictures(animal) {
 
     requestedAnimal = $(this).attr("data-animal");
 
@@ -57,10 +57,10 @@ function makeAnimalButtons() {
 
     for (i = 0; i < listOfAnimals.length; i++) {
     
-    var critterButton = $("<button>");
-    critterButton.attr("class", "btn btn-info ani-button");
-    critterButton.text(listOfAnimals[i]);
-    critterButton.attr("data-animal", listOfAnimals[i])
+        let critterButton = `
+        <input type="button" value="${listOfAnimals[i]}" class="btn btn-info ani-button" data-animal="${listOfAnimals[i]}">
+        `
+
     $("#button-panel").append(critterButton);
 };
 }
