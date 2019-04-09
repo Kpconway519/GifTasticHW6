@@ -6,3 +6,14 @@
 .ani-pic {
     width: 100%;
 }
+
+.aniGif {
+    width: 25em;
+    height: 25em;
+    margin: 1em;
+}
+
+.pictureShowcase {
+    display: flex;
+    flex-wrap: wrap;
+}
